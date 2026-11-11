@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Puhazhendi M - Future Software Engineer Portfolio">
+<title>Puhazhendi M | Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --cyan: #00f0ff;
+  --purple: #a855f7;
+  --pink: #ff007f;
+  --gold: #ffb52e;
+  --dichro-grad: linear-gradient(135deg, rgba(0,240,255,0.8), rgba(255,0,127,0.8), rgba(168,85,247,0.8), rgba(255,181,46,0.8));
+  --glass-bg: rgba(18, 18, 42, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --bg: #03030c;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.12), transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(255, 0, 127, 0.12), transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.08), transparent 60%);
+  background-attachment: fixed;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* DICHROIC GLASS BASE CLASS */
+.dichro-card {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 20px;
+  padding: 28px;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.dichro-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 21px;
+  padding: 1.5px;
+  background: var(--dichro-grad);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.3;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.dichro-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 15px 35px rgba(0, 240, 255, 0.2), 0 5px 15px rgba(255, 0, 127, 0.2);
+}
+
+.dichro-card:hover::before {
+  opacity: 1;
+}
+
+/* WELCOME SCREEN */
+#welcome {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 25px;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #12092b 0%, #03030c 100%);
+  transition: opacity 1s, visibility 1s;
+}
+
+#welcome.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#welcome > * {
+  position: relative;
+  z-index: 2;
+}
+
+.welcome-logo {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--cyan);
+  font-size: 24px;
+  letter-spacing: 4px;
+  text-shadow: 0 0 20px var(--cyan);
+  margin-bottom: 25px;
+}
+
+#welcome h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(27px, 6vw, 60px);
+  line-height: 1.4;
+  background: linear-gradient(90deg, #00f0ff, #ff007f, #ffb52e, #00f0ff);
+  background-size: 300%;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: shine 6s linear infinite;
+}
+
+@keyframes shine {
+  to { background-position: 300%; }
+}
+
+.welcome-subtitle {
+  font-size: 20px;
+  color: #e8d5ff;
+  margin: 20px 0;
+  text-shadow: 0 0 15px var(--purple);
+}
+
+.welcome-tagline {
+  color: var(--cyan);
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+}
+
+#explore {
+  padding: 16px 42px;
+  border-radius: 40px;
+  border: none;
+  background: var(--dichro-grad);
+  color: white;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+  transition: 0.3s;
+}
+
+#explore:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 40px rgba(255, 0, 127, 0.6);
+}
+
+/* SPARK PARTICLES */
+.particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particles span {
+  position: absolute;
+  bottom: -20px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 15px var(--cyan), 0 0 25px var(--pink);
+  animation: float 5s linear infinite;
+}
+
+@keyframes float {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-110vh) scale(0);
+    opacity: 0;
+  }
+}
+
+/* NAVIGATION */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 18px 7%;
+  background: rgba(8, 8, 23, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav h2 {
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(45deg, var(--cyan), var(--pink));
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+}
+
+nav a {
+  display: inline-block;
+  margin: 0 10px;
+  font-size: 14px;
+  color: #d1d5db;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: var(--cyan);
+  text-shadow: 0 0 12px var(--cyan);
+}
+
+/* GENERAL SECTIONS */
+section {
+  padding: 90px 9%;
+  text-align: center;
+}
+
+.section-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(23px, 4vw, 35px);
+  background: linear-gradient(90deg, var(--cyan), var(--purple), var(--pink));
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 45px;
+  display: inline-block;
+  filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.3));
+}
+
+.hero {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(35px, 8vw, 75px);
+  letter-spacing: 2px;
+}
+
+.hero h1 span {
+  background: linear-gradient(45deg, var(--cyan), var(--pink));
+  -webkit-background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.5));
+}
+
+.hero p {
+  margin-top: 18px;
+  color: #d8cdff;
+  font-size: 20px;
+}
+
+.typing {
+  color: var(--pink);
+  font-weight: bold;
+  text-shadow: 0 0 12px var(--pink);
+}
+
+.hero-button {
+  display: inline-block;
+  margin-top: 35px;
+  padding: 14px 32px;
+  border-radius: 30px;
+  position: relative;
+  background: rgba(0, 240, 255, 0.05);
+  border: 1px solid var(--cyan);
+  color: var(--cyan);
+  font-weight: 600;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+  backdrop-filter: blur(10px);
+  transition: 0.4s;
+}
+
+.hero-button:hover {
+  background: var(--cyan);
+  color: #03030c;
+  box-shadow: 0 0 30px var(--cyan), 0 0 50px var(--purple);
+}
+
+/* CARDS LAYOUT */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 28px;
+}
+
+.card h3 {
+  color: var(--cyan);
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+
+.card p {
+  color: #c8c8dd;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.highlight {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  background: rgba(255, 0, 127, 0.15);
+  border: 1px solid var(--pink);
+  color: var(--pink);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* EDUCATION */
+.score {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  background: linear-gradient(45deg, var(--cyan), var(--gold));
+  -webkit-background-clip: text;
+  color: transparent;
+  margin: 15px 0;
+}
+
+/* CERTIFICATE GALLERY */
+.certificate-card {
+  text-align: left;
+}
+
+.certificate-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--gold);
+  cursor: zoom-in;
+  transition: 0.3s;
+  box-shadow: 0 0 15px rgba(255, 181, 46, 0.2);
+}
+
+.certificate-card img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 25px rgba(255, 181, 46, 0.5);
+}
+
+.certificate-card h3 {
+  margin-top: 17px;
+}
+
+/* CONTACT */
+.contact-box {
+  max-width: 650px;
+  margin: auto;
+}
+
+.contact-box a {
+  color: var(--cyan);
+  font-weight: 600;
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+}
+
+footer {
+  padding: 35px;
+  text-align: center;
+  background: rgba(5, 5, 16, 0.8);
+  backdrop-filter: blur(15px);
+  color: #8a8aa3;
+  border-top: 1px solid var(--glass-border);
+  line-height: 2;
+}
+
+/* REVEAL EFFECT */
+.reveal {
+  opacity: 0;
+  transform: translateY(35px);
+  transition: opacity 0.8s, transform 0.8s;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* CERTIFICATE IMAGE VIEWER */
+#imageViewer {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  background: rgba(3, 3, 12, 0.9);
+  backdrop-filter: blur(15px);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+#imageViewer img {
+  max-width: 95%;
+  max-height: 85vh;
+  object-fit: contain;
+  border: 2px solid var(--cyan);
+  border-radius: 14px;
+  box-shadow: 0 0 50px rgba(0, 240, 255, 0.4);
+}
+
+#closeViewer {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 35px;
+  color: white;
+  cursor: pointer;
+}
+
+/* MOBILE */
+@media(max-width: 700px) {
+  nav {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  nav div {
+    text-align: center;
+  }
+
+  nav a {
+    font-size: 12px;
+    margin: 4px;
+  }
+
+  section {
+    padding: 65px 6%;
+  }
+
+  .hero {
+    min-height: 70vh;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- WELCOME SCREEN -->
+<div id="welcome">
+  <div class="particles" id="particles"></div>
+
+  <div class="welcome-logo">PM | PUHAZHENDI M</div>
+
+  <h1>
+    GLAD TO WELCOME YOU<br>
+    TO MY WEB PAGE 🔥
+  </h1>
+
+  <p class="welcome-subtitle">
+    Explore My Activities ✨
+  </p>
+
+  <p class="welcome-tagline">
+    DREAM BIG • CODE BIGGER • INSPIRE
+  </p>
+
+  <button id="explore" onclick="enterWebsite()">
+    EXPLORE NOW ➜
+  </button>
+</div>
+
+<!-- NAVIGATION -->
+<nav>
+  <h2>PM.</h2>
+
+  <div>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#education">Education</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#certificates">Certificates</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HOME -->
+<section class="hero" id="home">
+  <h1>PUHAZHENDI <span>M</span></h1>
+
+  <p>Future Software Engineer 🚀</p>
+
+  <p>
+    Passionate about
+    <span class="typing" id="typing"></span>
+  </p>
+
+  <p>Innovate | Create | Inspire</p>
+
+  <a class="hero-button" href="#about">
+    Discover My Journey ↓
+  </a>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="reveal">
+  <h2 class="section-title">ABOUT ME</h2>
+
+  <div class="dichro-card card">
+    <h3>Hello, I'm Puhazhendi M 👋</h3>
+
+    <p>
+      I am a B.Tech Information Technology student
+      at Sri Sai Ram Engineering College.
+
+      I am passionate about programming, technology,
+      artificial intelligence, innovation and
+      developing creative solutions to real-world problems.
+
+      My goal is to become a Future Software Engineer
+      and continuously improve my technical knowledge.
+    </p>
+
+    <br>
+
+    <span class="highlight">
+      IEEE Computer Society Member
+    </span>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="reveal">
+  <h2 class="section-title">MY EDUCATION 🎓</h2>
+
+  <div class="cards">
+
+    <div class="dichro-card card">
+      <h3>10th Standard</h3>
+      <div class="score">489</div>
+      <p>School Academic Achievement</p>
+    </div>
+
+    <div class="dichro-card card">
+      <h3>12th Standard</h3>
+      <div class="score">535</div>
+      <p>Higher Secondary Achievement</p>
+    </div>
+
+    <div class="dichro-card card">
+      <h3>B.Tech Information Technology</h3>
+      <div class="score">IT</div>
+      <p>Sri Sai Ram Engineering College</p>
+      <p>Currently pursuing</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="reveal">
+  <h2 class="section-title">MY TECH STACK 💻</h2>
+
+  <div class="cards">
+
+    <div class="dichro-card card">
+      <h3>C Programming</h3>
+      <p>Programming fundamentals and problem solving.</p>
+    </div>
+
+    <div class="dichro-card card">
+      <h3>HTML & CSS</h3>
+      <p>Building responsive web page interfaces.</p>
+    </div>
+
+    <div class="dichro-card card">
+      <h3>JavaScript</h3>
+      <p>Learning interactive website development.</p>
+    </div>
+
+    <div class="dichro-card card">
+      <h3>Artificial Intelligence</h3>
+      <p>Exploring AI concepts and applications.</p>
+    </div>
+
+    <div class="dichro-card card">
+      <h3>Internet of Things</h3>
+      <p>Exploring smart connected systems.</p>
+    </div>
+
+    <div class="dichro-card card">
+      <h3>Web Development</h3>
+      <p>Creative digital experiences and websites.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="reveal">
+  <h2 class="section-title">MY PROJECTS & IDEAS 🚀</h2>
+
+  <div class="cards">
+
+    <div class="dichro-card card">
+      <h3>NEER HEALTH</h3>
+      <p>
+        A rural healthcare access application concept
+        designed to connect residents and healthcare workers.
+      </p>
+      <span class="highlight">Healthcare Technology</span>
+    </div>
+
+    <div class="dichro-card card">
+      <h3>VIZHI</h3>
+      <p>
+        An AI-based crop disease detection application
+        concept for crops including tomato, rice and banana.
+      </p>
+      <span class="highlight">AI + Agriculture</span>
+    </div>
+
+    <div class="dichro-card card">
+      <h3>Li-Fi Communication</h3>
+      <p>
+        Exploring light-based data communication
+        through an Arduino prototype concept.
+      </p>
+      <span class="highlight">Communication Technology</span>
+    </div>
+
+    <div class="dichro-card card">
+      <h3>Women's Safety System</h3>
+      <p>
+        An IoT-enabled wearable edge system concept
+        for safety alerts and threat detection.
+      </p>
+      <span class="highlight">IoT + Edge Technology</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATES -->
+<section id="certificates" class="reveal">
+  <h2 class="section-title">MY CERTIFICATES 🏆</h2>
+
+  <div class="cards">
+
+    <div class="dichro-card card certificate-card">
+      <img
+        src="17574.jpg"
+        alt="IEEE-HKN International Masterclass certificate"
+        onclick="openImage(this.src)"
+      >
+
+      <h3>IEEE-HKN International Masterclass</h3>
+
+      <p>Exploring the Future of Data Science</p>
+
+      <p>26 October 2026</p>
+
+      <span class="highlight">Certificate of Participation</span>
+    </div>
+
+    <div class="dichro-card card">
+      <h3>Agentic AI Webinar</h3>
+      <p>Brand Monk Academy</p>
+    </div>
+
+    <div class="dichro-card card">
+      <h3>IBM AI Essentials V2</h3>
+      <p>IBM</p>
+    </div>
+
+    <div class="dichro-card card">
+      <h3>Introduction to Artificial Intelligence</h3>
+      <p>IBM - Coursera</p>
+    </div>
+
+    <div class="dichro-card card">
+      <h3>Code Mastery Workshop</h3>
+      <p>AuraType</p>
+    </div>
+
+    <div class="dichro-card card">
+      <h3>Explore Responsible AI</h3>
+      <p>Microsoft</p>
+    </div>
+
+    <div class="dichro-card card">
+      <h3>Microsoft Learnathon '26</h3>
+      <p>Copilot Agents</p>
+    </div>
+
+    <div class="dichro-card card">
+      <h3>Web Development Workshop</h3>
+      <p>EDSPARK</p>
+    </div>
+
+    <div class="dichro-card card">
+      <h3>Viksit Bharat Young Leaders Dialogue 2027</h3>
+      <p>Participation / Achievement</p>
+    </div>
+
+    <div class="dichro-card card">
+      <h3>IEEE ProComm Quizathon</h3>
+      <p>IEEE</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- MEMBERSHIP -->
+<section class="reveal">
+  <h2 class="section-title">PROFESSIONAL MEMBERSHIP 🌐</h2>
+
+  <div class="dichro-card card">
+    <h3>IEEE Computer Society</h3>
+    <p>
+      Proud member of the IEEE Computer Society,
+      exploring computing, technology and professional development.
+    </p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="reveal">
+  <h2 class="section-title">LET'S CONNECT ✨</h2>
+
+  <div class="dichro-card card contact-box">
+
+    <h3>Puhazhendi M</h3>
+
+    <p>
+      Future Software Engineer | B.Tech IT Student
+    </p>
+
+    <br>
+
+    <p>
+      LinkedIn:
+      <a
+        href="https://www.linkedin.com/in/puhazhendi-m-b39922435/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Visit My LinkedIn Profile ↗
+      </a>
+    </p>
+
+    <br>
+
+    <p>
+      Thank you for visiting my portfolio!
+      Let's innovate, create and inspire.
+    </p>
+
+  </div>
+</section>
+
+<!-- IMAGE VIEWER -->
+<div id="imageViewer" onclick="closeImage()">
+  <span id="closeViewer">&times;</span>
+  <img id="largeImage" src="" alt="Certificate preview">
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Puhazhendi M</p>
+  <p>Designed with creativity, passion and innovation 🔥</p>
+  <p>Future Software Engineer 🚀</p>
+</footer>
+
+<script>
+/* WELCOME SCREEN */
+function enterWebsite() {
+  document.getElementById("welcome").classList.add("hide");
+  document.body.style.overflow = "auto";
+}
+
+/* PARTICLE ANIMATION */
+const particles = document.getElementById("particles");
+
+for(let i = 0; i < 65; i++) {
+  const spark = document.createElement("span");
+  spark.style.left = Math.random() * 100 + "%";
+  spark.style.animationDelay = Math.random() * 5 + "s";
+  spark.style.animationDuration = (3 + Math.random() * 5) + "s";
+  particles.appendChild(spark);
+}
+
+/* TYPING ANIMATION */
+const words = [
+  "Programming",
+  "Artificial Intelligence",
+  "Web Development",
+  "Innovation",
+  "Technology"
+];
+
+let wordIndex = 0;
+let charIndex = 0;
+let deleting = false;
+
+function typeEffect() {
+  const element = document.getElementById("typing");
+  const word = words[wordIndex];
+
+  if(!deleting) {
+    element.textContent = word.substring(0, charIndex + 1);
+    charIndex++;
+
+    if(charIndex === word.length) {
+      deleting = true;
+      setTimeout(typeEffect, 1200);
+      return;
+    }
+  } else {
+    element.textContent = word.substring(0, charIndex - 1);
+    charIndex--;
+
+    if(charIndex === 0) {
+      deleting = false;
+      wordIndex = (wordIndex + 1) % words.length;
+    }
+  }
+
+  setTimeout(typeEffect, deleting ? 55 : 100);
+}
+
+typeEffect();
+
+/* SCROLL REVEAL */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting) {
+      entry.target.classList.add("visible");
+    }
+  });
+}, {threshold: 0.12});
+
+document.querySelectorAll(".reveal").forEach(section => {
+  observer.observe(section);
+});
+
+/* CERTIFICATE IMAGE VIEWER */
+function openImage(source) {
+  document.getElementById("largeImage").src = source;
+  document.getElementById("imageViewer").style.display = "flex";
+}
+
+function closeImage() {
+  document.getElementById("imageViewer").style.display = "none";
+}
+
+document.addEventListener("keydown", function(event) {
+  if(event.key === "Escape") {
+    closeImage();
+  }
+});
+</script>
+
+</body>
+</html>
